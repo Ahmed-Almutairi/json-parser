@@ -45,7 +45,29 @@ namespace JSONParser
                 if (handler.tokenizable(this)) return handler.tokenize(this);
             return null;
         }
-        public List<Token> all() { return null; }
+        public List<Token> all()
+        {
+            List<Token> ts = new List<Token>();
+            Token t = this.tokenize();
+
+            if(t == null) throw new Exception("Invalid token");
+
+            while (t != null)
+            {
+                ts.Add(t);
+                t = tokenize();
+
+                if (t == null && input.hasMore())
+                    throw new Exception("Invalid token");
+
+                    //foreach (var handler in this.handlers)
+
+                    //if (handler.tokenizable(this)) t = handler.tokenize(this);
+            }
+
+            return ts;
+        }
+
     }
 
 }

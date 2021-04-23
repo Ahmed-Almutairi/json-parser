@@ -4,7 +4,7 @@ using System.Text;
 
 namespace JSONParser
 {
-    public class JSONParser
+    public class JSONParser1
     {
     }
 }

@@ -6,17 +6,29 @@ namespace JSONParser
     {
         static void Main(string[] args)
         {
-            string jsonString = "{\"name\":\"mohammed\"}";
+            string jsonString = "{\"name\":\"mohammed\"   \"hi\"  }";
             Input input = new Input(jsonString);
-            Tokenizer t = new Tokenizer(input, new Tokenizable[] { 
-                // handlers ...
+            Tokenizer t = new Tokenizer(input, new Tokenizable[] {
+                 new braOpenOpejct(),
+                new WhiteSpaceTokenizer(),
+                new colon(),
+                new StringTokenizer(),
+                new braCloseOpejct()
+
             });
 
-            Token token = t.tokenize();
-            while (token != null)
+            //Token token = t.tokenize();
+            //Console.WriteLine(); Console.WriteLine(); Console.WriteLine(); Console.WriteLine();
+            //while (token != null)
+            //{
+            //    Console.WriteLine(token.Value + "  " + token.Type);
+            //    token = t.tokenize();
+            //}
+
+            Console.WriteLine("---------------------------");
+            foreach (Token tk in t.all())
             {
-                Console.WriteLine(token.Value);
-                token = t.tokenize();
+                Console.WriteLine(tk.Value + "  " + tk.Type);
             }
         }
     }

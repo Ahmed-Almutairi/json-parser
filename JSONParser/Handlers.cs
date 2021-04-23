@@ -24,8 +24,11 @@ namespace JSONParser
         }
         public override Token tokenize(Tokenizer t)
         {
-            return new Token(t.input.Position, t.input.LineNumber,
+
+            Token token = new Token(t.input.Position, t.input.LineNumber,
                 "identifier", t.input.loop(isId));
+           
+            return token;
         }
     }
     public class NumberTokenizer : Tokenizable
@@ -60,4 +63,88 @@ namespace JSONParser
                 "whitespace", t.input.loop(isWhiteSpace));
         }
     }
+
+    public class braOpenOpejct : Tokenizable
+    {
+        public override bool tokenizable(Tokenizer t)
+        {
+            return t.input.peek() == '{';
+        }
+        
+        public override Token tokenize(Tokenizer t)
+        {
+            t.input.step();
+            return new Token(t.input.Position, t.input.LineNumber,
+                "braOpenOpejct", "{");
+        }
+
+
+
+    }
+
+
+
+    public class braCloseOpejct : Tokenizable
+    {
+        public override bool tokenizable(Tokenizer t)
+        {
+            return t.input.peek() == '}';
+        }
+
+        public override Token tokenize(Tokenizer t)
+        {
+
+            t.input.step();
+
+            return new Token(t.input.Position, t.input.LineNumber,
+                "braCloseOpejct", "}");
+        }
+
+
+
+    }
+
+    public class colon : Tokenizable
+    {
+        public override bool tokenizable(Tokenizer t)
+        {
+            return t.input.peek() == ':';
+        }
+
+        public override Token tokenize(Tokenizer t)
+        {
+
+            t.input.step();
+            return new Token(t.input.Position, t.input.LineNumber,
+                "colon", ":");
+        }
+
+
+
+    }
+
+    public class StringTokenizer : Tokenizable
+    {
+        
+        public override bool tokenizable(Tokenizer t)
+        {
+            char currentCharacter = t.input.peek();
+            //Console.WriteLine(currentCharacter);
+            return currentCharacter == '"';
+        }
+        static bool isString(Input input)
+        {
+            char currentCharacter = input.peek();
+            return currentCharacter != '"';
+        }
+        public override Token tokenize(Tokenizer t)
+        {
+            t.input.step(); // "
+            Token tk = new Token(t.input.Position, t.input.LineNumber,
+                "String", t.input.loop(isString));
+            t.input.step();
+            return tk;
+        }
+    }
+
 }
