@@ -50,7 +50,7 @@ namespace JSONParser
             List<Token> ts = new List<Token>();
             Token t = this.tokenize();
 
-            if(t == null) throw new Exception("Invalid token");
+            if (t == null) ;// throw new Exception("Invalid token");
 
             while (t != null)
             {
