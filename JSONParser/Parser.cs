@@ -7,19 +7,25 @@ namespace JSONParser
 {
     public class Parser
     {
-        protected string KeyString = "string";
-        protected string KeyNumber = "number";
+        /*
+         * NOTE:
+         * Change values when ready!
+         * 
+         * ======================================================*/
+
+        protected string KeyString = "string"/*String*/;
+        protected string KeyNumber = "number"; // matched with the name in the handler
         protected string KeyBool = "bool";
         protected string KeyNull = "null";
         //protected string KeyObject = "object";
         //protected string KeyArray = "array";
-        protected string KeyOpenBracket = "open-bracket";
-        protected string KeyCloseBracket = "close-bracket";
+        protected string KeyOpenBracket = "open-bracket"/*braOpenOpejct*/;
+        protected string KeyCloseBracket = "close-bracket"/*braCloseOpejct*/;
         protected string KeyOpenSquBra = "open-squ-bra";
         protected string KeyCloseSquBra = "close-squ-bra";
         protected string KeyColon = "colon";
         protected string KeyComma = "comma";
-        protected string KeyWhitespace = "whitespace";
+        protected string KeyWhitespace = "whitespace"; // matched with the name in the handler
 
         public JsonObject Parse(string jsonString)
         {
