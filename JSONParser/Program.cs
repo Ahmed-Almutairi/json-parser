@@ -6,9 +6,10 @@ namespace JSONParser
     {
         static void Main(string[] args)
         {
-            string jsonString = "{\"name\":\"mohammed\"   \"hi\"  }";
+            string jsonString = "{10.0199999999994e-2222222225 \"name\":\"mohammed\"   \"hi\"  }";
             Input input = new Input(jsonString);
             Tokenizer t = new Tokenizer(input, new Tokenizable[] {
+                new NumberTokenizer(),
                  new braOpenOpejct(),
                 new WhiteSpaceTokenizer(),
                 new colon(),

@@ -27,7 +27,7 @@ namespace JSONParser
 
             Token token = new Token(t.input.Position, t.input.LineNumber,
                 "identifier", t.input.loop(isId));
-           
+
             return token;
         }
     }
@@ -35,16 +35,244 @@ namespace JSONParser
     {
         public override bool tokenizable(Tokenizer t)
         {
-            return Char.IsDigit(t.input.peek());
+            return t.input.peek() == '-' || Char.IsDigit(t.input.peek());
         }
-        static bool isDigit(Input input)
+        static string isNumber(Input input)
         {
-            return Char.IsDigit(input.peek());
+
+            input.step();
+            string str = "";
+
+            if (input.Character == '-')
+            {
+                str += input.Character;
+                if (input.peek() == '0')
+                {
+                    input.step();
+                    str += input.Character;
+
+                    if (input.peek() == '.')
+                    {
+                        input.step();
+                        str += input.Character;
+
+                        if (Char.IsDigit(input.peek()))
+                        {
+                            while (Char.IsDigit(input.peek()))
+                            {
+                                input.step();
+                                str += input.Character;
+
+                            }
+                        }
+                        if (input.peek() == 'e' || input.peek() == 'E')
+                        {
+                            input.step();
+                            str += input.Character;
+
+                            if (input.peek() == '-' || input.peek() == '+')
+                            {
+                                input.step();
+                                str += input.Character;
+
+                                if (Char.IsDigit(input.peek()))
+                                {
+                                    while (Char.IsDigit(input.peek()))
+                                    {
+                                        input.step();
+                                        str += input.Character;
+
+                                    }
+                                }
+                                else
+                                {
+                                    throw new Exception();
+                                }
+                            }
+                            else
+                                throw new Exception();
+                        }
+                        else
+                            throw new Exception();
+                    }
+                    else if (input.peek() == 'e' || input.peek() == 'E')
+                    {
+                        input.step();
+                        str += input.Character;
+
+                        if (input.peek() == '-' || input.peek() == '+')
+                        {
+                            input.step();
+                            str += input.Character;
+
+                            if (Char.IsDigit(input.peek()))
+                            {
+                                while (Char.IsDigit(input.peek()))
+                                {
+                                    input.step();
+                                    str += input.Character;
+
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception();
+                            }
+                        }
+                        else
+                            throw new Exception();
+                    }
+                    else
+                        throw new Exception();
+
+                }
+                else if (Char.IsDigit(input.peek()) && (int)Char.GetNumericValue(input.peek()) > 0 && (int)Char.GetNumericValue(input.peek()) < 10)
+                {
+                    input.step();
+                }
+                else
+                    throw new Exception();
+            }
+            if (input.Character == '0')
+            {
+                str += input.Character;
+
+                if (input.peek() == '.')
+                {
+                    input.step();
+                    str += input.Character;
+
+                    if (Char.IsDigit(input.peek()))
+                    {
+                        while (Char.IsDigit(input.peek()))
+                        {
+                            input.step();
+                            str += input.Character;
+
+                        }
+                    }
+                    if (input.peek() == 'e' || input.peek() == 'E')
+                    {
+                        input.step();
+                        str += input.Character;
+
+                        if (input.peek() == '-' || input.peek() == '+')
+                        {
+                            input.step();
+                            str += input.Character;
+
+                            if (Char.IsDigit(input.peek()))
+                            {
+                                while (Char.IsDigit(input.peek()))
+                                {
+                                    input.step();
+                                    str += input.Character;
+
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception();
+                            }
+                        }
+                        else
+                            throw new Exception();
+                    }
+                    else
+                        throw new Exception();
+                }
+                else if (input.peek() == 'e' || input.peek() == 'E')
+                {
+                    input.step();
+                    str += input.Character;
+
+                    if (input.peek() == '-' || input.peek() == '+')
+                    {
+                        input.step();
+                        str += input.Character;
+
+                        if (Char.IsDigit(input.peek()))
+                        {
+                            while (Char.IsDigit(input.peek()))
+                            {
+                                input.step();
+                                str += input.Character;
+
+                            }
+                        }
+                        else
+                        {
+                            throw new Exception();
+                        }
+                    }
+                    else
+                        throw new Exception();
+                }
+                else
+                    throw new Exception();
+
+            }
+            System.Console.WriteLine((int)Char.GetNumericValue(input.Character));
+            if (Char.IsDigit(input.Character) && (int)Char.GetNumericValue(input.Character) > 0 && (int)Char.GetNumericValue(input.Character) < 10)
+            {
+                str += input.Character;
+                while (Char.IsDigit(input.peek()))
+                {
+                    input.step();
+                    str += input.Character;
+                }
+                if (input.peek() == '.')
+                {
+                    input.step();
+                    str += input.Character;
+
+                    if (Char.IsDigit(input.peek()))
+                    {
+                        while (Char.IsDigit(input.peek()))
+                        {
+                            input.step();
+                            str += input.Character;
+
+                        }
+                    }
+                    if (input.peek() == 'e' || input.peek() == 'E')
+                    {
+                        input.step();
+                        str += input.Character;
+
+                        if (input.peek() == '-' || input.peek() == '+')
+                        {
+                            input.step();
+                            str += input.Character;
+
+                            if (Char.IsDigit(input.peek()))
+                            {
+                                while (Char.IsDigit(input.peek()))
+                                {
+                                    input.step();
+                                    str += input.Character;
+
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception();
+                            }
+                        }
+                        else
+                            throw new Exception();
+                    }
+                    else
+                        throw new Exception();
+                }
+            }
+
+            return str;
         }
         public override Token tokenize(Tokenizer t)
         {
             return new Token(t.input.Position, t.input.LineNumber,
-                "number", t.input.loop(isDigit));
+                "number", isNumber(t.input));
         }
     }
     public class WhiteSpaceTokenizer : Tokenizable
@@ -70,7 +298,7 @@ namespace JSONParser
         {
             return t.input.peek() == '{';
         }
-        
+
         public override Token tokenize(Tokenizer t)
         {
             t.input.step();
@@ -125,7 +353,7 @@ namespace JSONParser
 
     public class StringTokenizer : Tokenizable
     {
-        
+
         public override bool tokenizable(Tokenizer t)
         {
             char currentCharacter = t.input.peek();
@@ -146,5 +374,29 @@ namespace JSONParser
             return tk;
         }
     }
+
+    // public class KeyTokenizer : Tokenizable
+    // {
+    //     public override bool tokenizable(Tokenizer t)
+    //     {
+    //         char currentCharacter = t.input.peek();
+    //         //Console.WriteLine(currentCharacter);
+    //         return currentCharacter == '"' && (t.input.Character == ',' || t.input.Character == '{');
+    //     }
+    //     static bool isKey(Input input)
+    //     {
+    //         char currentCharacter = input.peek();
+    //         // fix later (if {" hfjjjff"} ) space after first "
+    //         return (currentCharacter == ':' || input.Character == ' ') && (input.Character == '"');
+    //     }
+    //     public override Token tokenize(Tokenizer t)
+    //     {
+
+    //         Token token = new Token(t.input.Position, t.input.LineNumber,
+    //             "key", t.input.loop(isKey));
+
+    //         return token;
+    //     }
+    // }
 
 }
